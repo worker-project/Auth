@@ -1,6 +1,8 @@
 package com.workerai.authentication.utils;
 
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 public class Logger {
     private final String loggerName;
@@ -26,10 +28,12 @@ public class Logger {
         }
     }
 
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+    private static String displayTime(long timeStamp) { return SDF.format(timeStamp / 1000); }
+
     public void Log(String requestType, String message) {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         System.out.println(
-                colorLog("PURPLE", timestamp + " ") + colorLog("RED", "[" + loggerName + "]") +
+                colorLog("PURPLE", displayTime(System.currentTimeMillis() * 1000) + " ") + colorLog("RED", "[" + loggerName + "]") +
                         colorLog("YELLOW", " Request: ") + colorLog("WHITE", requestType) +
                         colorLog("YELLOW", " Log: ") + colorLog("WHITE", message)
         );

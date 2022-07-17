@@ -22,7 +22,7 @@ public class Response {
                 response.status(200);
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("exists", Boolean.FALSE);
-                LOGGER.Log("getUser", "SQL request negative! User: " + uuid + " doesn't exist.\n");
+                LOGGER.Log("getUser", "SQL request negative! [USER] " + uuid + " doesn't exist.\n");
                 return jsonObject.toString();
             }
             response.status(200);
@@ -30,7 +30,7 @@ public class Response {
             object.addProperty("exists", Boolean.TRUE);
             object.addProperty("automine", account.hasAutomine());
             object.addProperty("forage", account.hasForaging());
-            LOGGER.Log("getUser", "SQL request positive! User: " + uuid + " exist.\n");
+            LOGGER.Log("getUser", "SQL request positive! [USER] " + uuid + " exist.\n");
             return object.toString();
         });
 
@@ -45,11 +45,11 @@ public class Response {
             JsonObject object = new JsonObject();
             if (token == null) {
                 object.addProperty("exists", Boolean.FALSE);
-                LOGGER.Log("getToken", "SQL request negative! Token doesn't exist for User: " + uuid + ".\n");
+                LOGGER.Log("getToken", "SQL request negative! [TOKEN] doesn't exist for [USER] " + uuid + ".\n");
             } else {
                 object.addProperty("exists", Boolean.TRUE);
                 object.addProperty("token", token);
-                LOGGER.Log("getToken", "SQL request positive! Token: " + token + "exist for User: " + uuid + ".\n");
+                LOGGER.Log("getToken", "SQL request positive! [TOKEN] " + token + " exist for [USER] " + uuid + ".\n");
             }
             return object.toString();
         });
