@@ -52,6 +52,6 @@ public class Account {
     }
 
     public String displayAccountData() {
-        return "\n{\n  USERNAME: " + getUsername() + ";\n  UUID: " + getUuid() + ";\n  TOKEN: " + getToken() + ";\n  AUTOMINE: " + hasAutomine() + ";\n  FORAGING: " + hasForaging() + ";\n}";
+        return "\n{\n  USERNAME: " + getUsername() + ",\n  UUID: " + getUuid() + ",\n  TOKEN: " + getToken() + ",\n  AUTOMINE: " + hasAutomine() + ",\n  FORAGING: " + hasForaging() + ",\n}";
     }
 }
