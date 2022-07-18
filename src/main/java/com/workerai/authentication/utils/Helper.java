@@ -41,7 +41,6 @@ public abstract class Helper {
             JsonObject obj = (JsonObject) parser.parse(response.toString());
 
             String username = String.valueOf(obj.get("name"));
-            System.out.println(username);
             return username.replace("\"", "");
         } catch (IOException ex) {
             throw new RuntimeException(ex);

@@ -12,7 +12,7 @@ public class Database {
             conn = DriverManager.getConnection(url);
 
             System.out.println("Connection to SQLite has been established.");
-            String sql = "CREATE TABLE IF NOT EXISTS `users` (`id` integer primary key ,`username` VARCHAR(16) NULL, `uuid` VARCHAR(36) NOT NULL ,`discordId` VARCHAR(18) NOT NULL ,`token` VARCHAR(32) NOT NULL ,`automine` INTEGER NOT NULL ,`foraging` INTEGER NOT NULL);";
+            String sql = "CREATE TABLE IF NOT EXISTS `accounts` (`id` integer primary key ,`username` VARCHAR(16) NULL, `uuid` VARCHAR(36) NOT NULL ,`discordId` VARCHAR(18) NOT NULL ,`token` VARCHAR(32) NOT NULL ,`automine` INTEGER NOT NULL ,`foraging` INTEGER NOT NULL);";
 
             Statement stmt = conn.createStatement();
             stmt.execute(sql);
@@ -23,7 +23,7 @@ public class Database {
 
     static boolean addAccount(Account account) {
         try {
-            String sql = "INSERT INTO users (username, uuid, discordId, token, automine, foraging) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO accounts (username, uuid, discordId, token, automine, foraging) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, account.getUsername());
             stmt.setString(2, account.getUuid());
@@ -41,7 +41,7 @@ public class Database {
 
     static Account getAccount(String uuid) {
         try {
-            String sql = "SELECT * FROM users WHERE uuid = ?";
+            String sql = "SELECT * FROM accounts WHERE uuid = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, uuid);
             ResultSet rs = stmt.executeQuery();
@@ -56,7 +56,6 @@ public class Database {
             account.setAutomine((rs.getInt("automine") == 1));
             account.setForaging((rs.getInt("foraging") == 1));
             return account;
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
@@ -65,7 +64,7 @@ public class Database {
 
     static String getAccountToken(String uuid) {
         try {
-            String sql = "SELECT * FROM users WHERE uuid = ?";
+            String sql = "SELECT * FROM accounts WHERE uuid = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, uuid);
             ResultSet rs = stmt.executeQuery();
