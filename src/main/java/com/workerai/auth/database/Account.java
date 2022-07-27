@@ -1,4 +1,4 @@
-package com.workerai.authentication.database;
+package com.workerai.auth.database;
 
 public class Account {
     public static class AccountData {
@@ -49,9 +49,5 @@ public class Account {
     }
     public boolean hasForaging() {
         return accountData.foraging;
-    }
-
-    public String displayAccountData() {
-        return "\n{\n  USERNAME: " + getUsername() + ",\n  UUID: " + getUuid() + ",\n  TOKEN: " + getToken() + ",\n  AUTOMINE: " + hasAutomine() + ",\n  FORAGING: " + hasForaging() + ",\n}";
     }
 }

@@ -4,8 +4,12 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
+tasks.shadowJar.configure {
+    classifier = null
+}
+
 group 'com.workerai'
-version '1.0.0'
+archivesBaseName = "WorkerAuth"
 
 repositories {
     mavenCentral()
@@ -22,7 +26,7 @@ dependencies {
 }
 
 application {
-    getMainClass().set('com.workerai.authentication.database.Requests')
+    getMainClass().set('com.workerai.auth.WorkerAuth')
 }
 
 compileJava {
@@ -30,5 +34,5 @@ compileJava {
 }
 
 jar {
-    manifest.attributes('Main-Class': 'com.workerai.authentication.database.Requests')
+    manifest.attributes('Main-Class': 'com.workerai.auth.WorkerAuth')
 }

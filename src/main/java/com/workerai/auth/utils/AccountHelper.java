@@ -1,18 +1,16 @@
-package com.workerai.authentication.utils;
+package com.workerai.auth.utils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.workerai.authentication.database.Account;
+import com.workerai.auth.database.Account;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 
-public abstract class Helper {
+public abstract class AccountHelper {
     public static String generateAccountToken() {
         StringBuilder token = new StringBuilder();
         for (int i = 0; i < 32; i++) {
@@ -45,5 +43,9 @@ public abstract class Helper {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public static String getAccountData(Account account) {
+        return "\n{\n  USERNAME: " + account.getUsername() + ",\n  UUID: " + account.getUuid() + ",\n  TOKEN: " + account.getToken() + ",\n  AUTOMINE: " + account.hasAutomine() + ",\n  FORAGING: " + account.hasForaging() + ",\n}";
     }
 }

@@ -1,4 +1,6 @@
-package com.workerai.authentication.database;
+package com.workerai.auth.database;
+
+import com.workerai.auth.WorkerAuth;
 
 import java.sql.*;
 
@@ -11,8 +13,17 @@ public class Database {
 
             conn = DriverManager.getConnection(url);
 
-            System.out.println("Connection to SQLite has been established.");
-            String sql = "CREATE TABLE IF NOT EXISTS `accounts` (`id` integer primary key ,`username` VARCHAR(16) NULL, `uuid` VARCHAR(36) NOT NULL ,`discordId` VARCHAR(18) NOT NULL ,`token` VARCHAR(32) NOT NULL ,`automine` INTEGER NOT NULL ,`foraging` INTEGER NOT NULL);";
+            WorkerAuth.getLogger().custom("initialization", "Connection to SQLite has been established.\n");
+
+            String sql = "CREATE TABLE IF NOT EXISTS `accounts` (" +
+                    "`ID`       INTEGER     PRIMARY KEY," +
+                    "`USERNAME` CHAR(16)    NULL," +
+                    "`UUID`     CHAR(36)    NOT NULL," +
+                    "`DISCORD`  CHAR(18)    NOT NULL," +
+                    "`TOKEN`    CHAR(32)    NOT NULL," +
+                    "`AUTOMINE` INTEGER     NOT NULL," +
+                    "`FORAGING` INTEGER     NOT NULL" +
+                    ");";
 
             Statement stmt = conn.createStatement();
             stmt.execute(sql);
@@ -23,7 +34,7 @@ public class Database {
 
     static boolean addAccount(Account account) {
         try {
-            String sql = "INSERT INTO accounts (username, uuid, discordId, token, automine, foraging) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO accounts (USERNAME, UUID, DISCORD, TOKEN, AUTOMINE, FORAGING) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, account.getUsername());
             stmt.setString(2, account.getUuid());
@@ -41,7 +52,7 @@ public class Database {
 
     static Account getAccount(String uuid) {
         try {
-            String sql = "SELECT * FROM accounts WHERE uuid = ?";
+            String sql = "SELECT * FROM accounts WHERE UUID = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, uuid);
             ResultSet rs = stmt.executeQuery();
@@ -49,12 +60,12 @@ public class Database {
             if (!rs.next()) return null;
 
             Account account = new Account();
-            account.setUsername(rs.getString("username"));
-            account.setUuid(rs.getString("uuid"));
-            account.setDiscordId(rs.getString("discordId"));
-            account.setToken(rs.getString("token"));
-            account.setAutomine((rs.getInt("automine") == 1));
-            account.setForaging((rs.getInt("foraging") == 1));
+            account.setUsername(rs.getString("USERNAME"));
+            account.setUuid(rs.getString("UUID"));
+            account.setDiscordId(rs.getString("DISCORD"));
+            account.setToken(rs.getString("TOKEN"));
+            account.setAutomine((rs.getInt("AUTOMINE") == 1));
+            account.setForaging((rs.getInt("FORAGING") == 1));
             return account;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -64,14 +75,14 @@ public class Database {
 
     static String getAccountToken(String uuid) {
         try {
-            String sql = "SELECT * FROM accounts WHERE uuid = ?";
+            String sql = "SELECT * FROM accounts WHERE UUID = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, uuid);
             ResultSet rs = stmt.executeQuery();
 
             if (!rs.next()) return null;
 
-            return rs.getString("token");
+            return rs.getString("TOKEN");
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

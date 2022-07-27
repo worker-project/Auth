@@ -1,15 +1,11 @@
-package com.workerai.authentication.logger;
+package com.workerai.auth.logger;
 
 public interface ILogger {
-    void err(String message);
-
     void custom(String custom, String message);
-
-    void printStackTrace(String errorName, Throwable cause);
 
     void printStackTrace(Throwable cause);
 
-    default void writeToTheLogFile(String toLog) {}
+    default void writeToLogFile(String toLog) {}
 
     enum EnumLogColor {
         RESET("\u001B[0m"),
