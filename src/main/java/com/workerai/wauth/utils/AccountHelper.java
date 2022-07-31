@@ -1,8 +1,8 @@
-package com.workerai.auth.utils;
+package com.workerai.wauth.utils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.workerai.auth.database.Account;
+import com.workerai.wauth.database.Account;
 
 import java.io.BufferedReader;
 import java.io.IOException;

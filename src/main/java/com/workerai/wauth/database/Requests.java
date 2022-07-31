@@ -1,8 +1,8 @@
-package com.workerai.auth.database;
+package com.workerai.wauth.database;
 
 import com.google.gson.JsonObject;
-import com.workerai.auth.WorkerAuth;
-import com.workerai.auth.utils.AccountHelper;
+import com.workerai.wauth.WorkerAuth;
+import com.workerai.wauth.utils.AccountHelper;
 import spark.Spark;
 
 public class Requests {

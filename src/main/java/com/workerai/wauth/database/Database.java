@@ -1,6 +1,6 @@
-package com.workerai.auth.database;
+package com.workerai.wauth.database;
 
-import com.workerai.auth.WorkerAuth;
+import com.workerai.wauth.WorkerAuth;
 
 import java.sql.*;
 

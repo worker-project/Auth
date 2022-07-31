@@ -1,4 +1,4 @@
-package com.workerai.auth.logger;
+package com.workerai.wauth.logger;
 
 public interface ILogger {
     void custom(String custom, String message);
