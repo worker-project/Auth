@@ -1,6 +1,6 @@
-package com.workerai.wauth.database;
+package com.workerai.auth.database;
 
-import com.workerai.wauth.WorkerAuth;
+import com.workerai.auth.WorkerAuth;
 
 import java.sql.*;
 
@@ -50,7 +50,7 @@ public class Database {
         }
     }
 
-    static Account getAccount(String uuid) {
+    static Account getAccountFromUuid(String uuid) {
         try {
             String sql = "SELECT * FROM accounts WHERE UUID = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -73,7 +73,30 @@ public class Database {
         }
     }
 
-    static String getAccountToken(String uuid) {
+
+    static Account getAccountFromDiscord(String discord) {
+        try {
+            String sql = "SELECT * FROM accounts WHERE DISCORD = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, discord);
+            ResultSet rs = stmt.executeQuery();
+
+            if (!rs.next()) return null;
+
+            Account account = new Account();
+            account.setUsername(rs.getString("USERNAME"));
+            account.setUuid(rs.getString("UUID"));
+            account.setDiscordId(rs.getString("DISCORD"));
+            account.setToken(rs.getString("TOKEN"));
+            account.setAutomine((rs.getInt("AUTOMINE") == 1));
+            account.setForaging((rs.getInt("FORAGING") == 1));
+            return account;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    static String getTokenFromUuid(String uuid) {
         try {
             String sql = "SELECT * FROM accounts WHERE UUID = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);

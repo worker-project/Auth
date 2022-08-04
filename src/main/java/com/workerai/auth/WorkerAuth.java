@@ -1,8 +1,8 @@
-package com.workerai.wauth;
+package com.workerai.auth;
 
-import com.workerai.wauth.database.Requests;
-import com.workerai.wauth.logger.ILogger;
-import com.workerai.wauth.logger.Logger;
+import com.workerai.auth.database.Requests;
+import com.workerai.auth.logger.ILogger;
+import com.workerai.auth.logger.Logger;
 
 import java.io.IOException;
 import java.nio.file.Path;

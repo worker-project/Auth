@@ -1,4 +1,4 @@
-package com.workerai.wauth.database;
+package com.workerai.auth.database;
 
 public class Account {
     public static class AccountData {

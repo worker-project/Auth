@@ -1,4 +1,4 @@
-package com.workerai.wauth.logger;
+package com.workerai.auth.logger;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
