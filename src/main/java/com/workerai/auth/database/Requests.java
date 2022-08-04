@@ -14,6 +14,17 @@ public class Requests {
             WorkerAuth.getLogger().custom("getUserFromDiscord", "SQL request detected!");
             String discord = request.queryParams("discord");
 
+            String token = request.headers("token");
+            if (token == null || !token.equals("0af8b506-1821-49cd-9327-0f0d434f33e7")) {
+                response.status(404);
+                response.type("application/html");
+
+                WorkerAuth.getLogger().custom("getUserFromDiscord", "SQL request denied! Possibly external request?");
+                WorkerAuth.getLogger().custom("getUserFromDiscord", "Detected credentials: [UUID] \"" + discord + "\" [TOKEN] \"" + token + "\".");
+                WorkerAuth.getLogger().custom("getUserFromDiscord", "SQL request return: " + "<html><body><h2>404 Not found</h2></body></html>\n");
+                return "<html><body><h2>404 Not found</h2></body></html>";
+            }
+
             Account account = Database.getAccountFromDiscord(discord);
             response.type("application/json");
             if (account == null) {
@@ -29,6 +40,7 @@ public class Requests {
             response.status(200);
             JsonObject object = new JsonObject();
             object.addProperty("exists", Boolean.TRUE);
+            object.addProperty("UUID", account.getUuid());
             object.addProperty("automine", account.hasAutomine());
             object.addProperty("forage", account.hasForaging());
 
