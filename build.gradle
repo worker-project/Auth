@@ -9,7 +9,7 @@ tasks.shadowJar.configure {
 }
 
 group 'com.workerai'
-archivesBaseName = "WorkerAuth"
+archivesBaseName = "WorkerAuthentication"
 
 repositories {
     mavenCentral()
